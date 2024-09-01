@@ -1,0 +1,37 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: mern-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: vinodjalagam/frontend:latest
+          ports:
+            - containerPort: 5173
+          env:
+            - name: REACT_APP_URL
+              value: http://localhost:5050
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: frontend
+  namespace: mern-app
+spec:
+  selector:
+    app: frontend
+  type: NodePort
+  ports:
+    - port: 5173
+      targetPort: 5173
+      NodePort: 30000

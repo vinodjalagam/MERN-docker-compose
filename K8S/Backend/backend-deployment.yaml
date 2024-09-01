@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: mern-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: vinodjalagam/backend
+          ports:
+            - containerPort: 5050
+          env:
+            - name: MONGO_URL
+              value: mongodb://mongodb:27017/mydatabase
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: backend
+  namespace: mern-app
+spec:
+  selector:
+    app: backend
+  type: ClusterIP
+  ports:
+    - port: 5050
+      targetPort: 5050
