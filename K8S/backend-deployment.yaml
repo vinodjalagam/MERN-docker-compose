@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: vinodjalagam/backend
+          image: vinodjalagam/backend:latest
           ports:
             - containerPort: 5050
           env:
