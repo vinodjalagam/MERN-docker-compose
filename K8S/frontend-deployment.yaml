@@ -1,4 +1,4 @@
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: frontend
@@ -32,7 +32,6 @@ spec:
     app: frontend
   type: NodePort
   ports:
-    - protocal: TCP
-      port: 80
+    - port: 5173
       targetPort: 5173
-      NodePort: 30007
+      nodePort: 31000
