@@ -33,7 +33,8 @@ metadata:
 spec:
   selector:
     app: backend
-  type: ClusterIP
+  type: NodePort
   ports:
     - port: 5050
       targetPort: 5050
+      protocal: TCP

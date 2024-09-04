@@ -21,7 +21,7 @@ spec:
             - containerPort: 5173
           env:
             - name: REACT_APP_URL
-              value: http://backend:5050
+              value: http://backend:5050/record
 
 ---
 # Frontend Service
@@ -38,3 +38,4 @@ spec:
     - port: 5173
       targetPort: 5173
       nodePort: 31000
+      protocal: TCP
