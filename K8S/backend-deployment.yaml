@@ -1,3 +1,4 @@
+# Backend Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -21,7 +22,9 @@ spec:
           env:
             - name: MONGO_URL
               value: mongodb://mongodb:27017/mydatabase
+
 ---
+# Backend Service
 kind: Service
 apiVersion: v1
 metadata:

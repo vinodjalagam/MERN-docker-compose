@@ -17,7 +17,7 @@ export default function Record() {
       if(!id) return;
       setIsNew(false);
       const response = await fetch(
-        `http://localhost:5050/record/${params.id.toString()}`
+        `http://65.0.129.72:5050/record/${params.id.toString()}`
       );
       if (!response.ok) {
         const message = `An error has occurred: ${response.statusText}`;

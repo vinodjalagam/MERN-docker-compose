@@ -1,3 +1,4 @@
+# MongoDB Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -21,11 +22,29 @@ spec:
           volumeMounts:
             - name: mongo-data
               mountPath: /data/db
+          readinessProbe:
+            exec:
+              command:
+                - mongo
+                - --eval
+                - "db.adminCommand('ping')"
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            exec:
+              command:
+                - mongo
+                - --eval
+                - "db.adminCommand('ping')"
+            initialDelaySeconds: 10
+            periodSeconds: 10
       volumes:
         - name: mongo-data
           persistentVolumeClaim:
             claimName: mongo-pvc
+
 ---
+# MongoDB Service
 apiVersion: v1
 kind: Service
 metadata:
@@ -40,6 +59,7 @@ spec:
     app: mongodb
 
 ---
+# Persistent Volume
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -52,7 +72,9 @@ spec:
     - ReadWriteOnce
   hostPath:
     path: /mnt/data/mongo
+
 ---
+# Persistent Volume Claim
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
